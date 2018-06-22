@@ -1,40 +1,41 @@
 $(document).ready(function(){
 
-  //vars setup
+  //vars setup------------------------------------------------------------------
 
-  var main = $('#main')[0];
+  var main = $('#main')[0]; //le player
 
-  var main_source = $('#main_audioSource');
+  var main_source = $('#main_audioSource'); //la source pour changer la musique du player
 
-  var structure = get_structure();
+  var structure = get_structure(); // arborescence du dossier de musique
 
-  var current_playlist = 0;
+  var current_playlist = 0; //playlist qui joue actuellement . Prédéfinit à 0 par défaut.
 
-  var current_music = 0;
+  var current_music = 0; // musique qui joue actuellement. Prédéfinit à 0 par défaut.
 
-  var playlists_size = structure.length - 1;
+  var playlists_size = structure.length - 1; // nombre de playists / chaînes
 
-  var frequency = 0;
+  var frequency = 0; // variable pour la fréquence. Actuellement pas utilisée
 
-  // Functions to call
+  // Functions to call----------------------------------------------------------
 
-  function set_source(player_source,player,music_path)
+  function set_source(player_source,player,music_path) // permet de changer de musique
   {
     player_source.attr('src',music_path);
     player.load();
     player.play();
   }
 
-  function get_structure()
+  function get_structure() // permet de récupérer l'arborescence du dossier musique
   {
     return JSON.parse($("#structure").html());
   }
 
-  function getRandomInt(max) {
+  function getRandomInt(max) // permet de récupérer un entier aléatoire entre 0 et max
+  {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-  function checkend(player,player_source)
+  function checkend(player,player_source) // change de musique à la fin d'une chanson
   {
     var length = player.duration;
     if(length == player.currentTime)
@@ -43,7 +44,7 @@ $(document).ready(function(){
 
       if(current_music == next_music)
       {
-        next_music -=  1;
+        next_music -=  1; //pour ne pas récupérer le même morceau que celui qui vient de se terminer...oui c'est améliorable
       }
 
       current_music = next_music;
@@ -52,27 +53,30 @@ $(document).ready(function(){
     }
   }
 
-  //event triggered functions
+  //event triggered functions---------------------------------------------------
 
-  $(document).bind('keydown',function(e){
-     if(e.keyCode == 38) {
+  $(document).bind('keydown',function(e){ //changement de chaine lorqu'on appuye sur fleche du haut ou fleche du bas.
+     if(e.keyCode == 38) {//flèche du haut
         current_playlist+=1;
      }
-     else if(e.keyCode == 40) {
+     else if(e.keyCode == 40) {//flèche du bas
          current_playlist-=1;
     }
-    if(current_playlist < 0 )
+    if(current_playlist < 0 )//si on descend en dessus de la plus "petite" playlist
     {
       current_playlist= 0;
       set_source(main_source,main,"alert/too_low.wav");
     }
-    else if(current_playlist > structure.length)
+    else if(current_playlist > structure.length-1) //si on monte au dessus de la plus haute playlist
     {
       current_playlist = structure.length-1;
       set_source(main_source,main,"alert/too_high.wav");
     }
     else
     {
+      //changement de la musique
+      $("#current").html("Playlist : "+current_playlist);
+
       next_music = getRandomInt(structure[current_playlist][1].length);
 
       set_source(main_source,main,"music/"+structure[current_playlist][0]+"/"+structure[current_playlist][1][next_music]);
@@ -81,15 +85,15 @@ $(document).ready(function(){
   });
 
   //initial script
+  //lors du lancement de la page
+  var first_playlist = structure[0];//première playlist
+  var random_music = getRandomInt(first_playlist[1].length);//une musique random
 
-  var first_playlist = structure[0];
-  var random_music = getRandomInt(first_playlist[1].length);
+  current_music = random_music; //définit comme la musique qui joue courament
 
-  current_music = random_music;
+  set_source(main_source,main,"music/"+first_playlist[0]+"/"+first_playlist[1][random_music]);//on met dans la musique en source
 
-  set_source(main_source,main,"music/"+first_playlist[0]+"/"+first_playlist[1][random_music]);
-
-  setInterval(function(){
+  setInterval(function(){ // toutes les 5 secondes on vérifie que la chanson ne soit pas terminée
     checkend(main,main_source);
   },5000);
 

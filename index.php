@@ -26,6 +26,7 @@
     Your browser does not support the audio tag.
   </audio>
 
+  <div id="current" >Playlist : 0</div>
 
 <?php
     $musicPath = "./music/"; //toutes les plylist sont contenues dans le dossier musique
