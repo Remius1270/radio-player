@@ -84,12 +84,12 @@ $(document).ready(function(){
      if(current_playlist < 0 )//si on descend en dessus de la plus "petite" playlist
      {
        current_playlist= 0;
-       play_effect("./alert/too_low.wav");
+      // play_effect("./alert/too_low.wav");
      }
      else if(current_playlist > structure.length-1) //si on monte au dessus de la plus haute playlist
      {
        current_playlist = structure.length;
-       play_effect("./alert/too_high.wav");
+      // play_effect("./alert/too_high.wav");
      }
      else
      {
