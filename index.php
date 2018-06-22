@@ -27,7 +27,7 @@
   </audio>
 
   <audio controls  id="effect">
-    <source src="" type="audio/mpeg" id="effet_audio_source" >
+    <source src="" id="effect_audio_source" >
     Your browser does not support the audio tag.
   </audio>
 

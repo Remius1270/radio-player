@@ -24,6 +24,7 @@ $(document).ready(function(){
 
   function set_source(player_source,player,music_path) // permet de changer de musique
   {
+    player.pause();
     player_source.attr('src',music_path);
     player.load();
 
@@ -34,7 +35,9 @@ $(document).ready(function(){
 
   function play_effect(effect_path) // permet de changer de musique
   {
-     effect_source.attr(effect_path);
+    console.log(effect_path);
+     effect.pause();
+     effect_source.attr('src',effect_path);
      effect.load();
      effect.play();
   }
@@ -71,7 +74,7 @@ $(document).ready(function(){
   //event triggered functions---------------------------------------------------
 
   $(document).bind('keydown',function(e){ //changement de chaine lorqu'on appuye sur fleche du haut ou fleche du bas.
-    play_effect("alert/switch.wav");
+    //play_effect("./alert/switch.wav");
       if(e.keyCode == 38) {//flèche du haut
          current_playlist+=1;
       }
@@ -81,12 +84,12 @@ $(document).ready(function(){
      if(current_playlist < 0 )//si on descend en dessus de la plus "petite" playlist
      {
        current_playlist= 0;
-       play_effect("alert/too_low.wav");
+       play_effect("./alert/too_low.wav");
      }
      else if(current_playlist > structure.length-1) //si on monte au dessus de la plus haute playlist
      {
        current_playlist = structure.length;
-       play_effect("alert/too_high.wav");
+       play_effect("./alert/too_high.wav");
      }
      else
      {
@@ -102,6 +105,7 @@ $(document).ready(function(){
   });
 
   //initial script--------------------------------------------------------------
+
   //lors du lancement de la page
   var first_playlist = structure[0];//première playlist
   var random_music = getRandomInt(first_playlist[1].length);//une musique random
