@@ -14,6 +14,8 @@ $(document).ready(function(){
 
   var playlists_size = structure.length - 1;
 
+  var frequency = 0;
+
   // Functions to call
 
   function set_source(player_source,player,music_path)
@@ -49,6 +51,34 @@ $(document).ready(function(){
       set_source(player_source,player,"music/"+first_playlist[0]+"/"+structure[current_playlist][1][next_music]);
     }
   }
+
+  //event triggered functions
+
+  $(document).bind('keydown',function(e){
+     if(e.keyCode == 38) {
+        current_playlist+=1;
+     }
+     else if(e.keyCode == 40) {
+         current_playlist-=1;
+    }
+    if(current_playlist < 0 )
+    {
+      current_playlist= 0;
+      set_source(main_source,main,"alert/too_low.wav");
+    }
+    else if(current_playlist > structure.length)
+    {
+      current_playlist = structure.length-1;
+      set_source(main_source,main,"alert/too_high.wav");
+    }
+    else
+    {
+      next_music = getRandomInt(structure[current_playlist][1].length);
+
+      set_source(main_source,main,"music/"+structure[current_playlist][0]+"/"+structure[current_playlist][1][next_music]);
+    }
+
+  });
 
   //initial script
 
