@@ -26,6 +26,11 @@
     Your browser does not support the audio tag.
   </audio>
 
+  <audio controls  id="effect">
+    <source src="" type="audio/mpeg" id="effet_audio_source" >
+    Your browser does not support the audio tag.
+  </audio>
+
   <div id="current" >Playlist : 0</div>
 
 <?php
@@ -39,7 +44,7 @@
       $playlist_container = array();
       if(is_dir($musicPath.$playlist) && $playlist != '.' && $playlist != '..') // on affiche toutes les playlists sauf "." et ".." qui sont des indexes
       {
-        //oui bon bah la je fais l'arborescence et c'est ton algo a la base donc je vais pas t'expliquer ce que tu as fait hein 
+        //oui bon bah la je fais l'arborescence et c'est ton algo a la base donc je vais pas t'expliquer ce que tu as fait hein
         $playlist_title = $playlist;
         $playlist_musics = array();
 
