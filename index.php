@@ -26,10 +26,6 @@
     Your browser does not support the audio tag.
   </audio>
 
-  <audio controls  id="sub">
-    <source src="" type="audio/mpeg" id="sub_audioSource" >
-    Your browser does not support the audio tag.
-  </audio>
 
 <?php
     $musicPath = "./music/"; //toutes les plylist sont contenues dans le dossier musique
