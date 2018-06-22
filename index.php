@@ -21,13 +21,13 @@
 
 <body>
 
-  <audio controls autoplay id="main">
-    <source src="horse.mp3" type="audio/mpeg" id="main_audioSource" >
+  <audio controls  id="main">
+    <source src="" type="audio/mpeg" id="main_audioSource" >
     Your browser does not support the audio tag.
   </audio>
 
-  <audio controls autoplay id="sub">
-    <source src="horse.mp3" type="audio/mpeg" id="sub_audioSource" >
+  <audio controls  id="sub">
+    <source src="" type="audio/mpeg" id="sub_audioSource" >
     Your browser does not support the audio tag.
   </audio>
 
@@ -57,8 +57,9 @@
             }
         }
         array_push($playlist_container,$playlist_title,$playlist_musics);
+        array_push($music_structure,$playlist_container);
       }
-      array_push($music_structure,$playlist_container);
+
     }
     echo "<div id='structure' >".json_encode($music_structure)."</div>";
     ?>
